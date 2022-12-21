@@ -27,9 +27,9 @@ Simple whatsapp api for only send message without any authentication.
 ## How to Get Group ID
 1. open https://web.whatsapp.com/
 2. open the Group Profile
-3. on your keyboard press CTRL + SHIFT + I
+3. on your keyboard press CTRL + SHIFT + I (Developer Tools / Inspect Element)
 4. go to Elements TAB
 5. find value with press CTRL + F
 6. type @g.us and then enter
-7. false_123456789xxx@g.us_BAE5AB1xxxx_62xxxxx@c.us
-8. Your Group ID is 123456789xxx@g.us
+7. the value must be like this `false_123456789xxx@g.us_BAE5AB1xxxx_62xxxxx@c.us`
+8. Your Group ID is `123456789xxx@g.us` (just the number)
