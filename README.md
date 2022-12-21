@@ -22,3 +22,14 @@ Simple whatsapp api for only send message without any authentication.
 1. go to folder src --> controller
 2. rename ChatController.ts into what ever you want (ChatController.backup.txt for example)
 3. rename ChatController.txt to ChatController.ts
+4. build
+
+## How to Get Group ID
+1. open https://web.whatsapp.com/
+2. open the Group Profile
+3. on your keyboard press CTRL + SHIFT + I
+4. go to Elements TAB
+5. find value with press CTRL + F
+6. type @g.us and then enter
+7. false_123456789xxx@g.us_BAE5AB1xxxx_62xxxxx@c.us
+8. Your Group ID is 123456789xxx@g.us
