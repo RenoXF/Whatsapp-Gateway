@@ -30,6 +30,6 @@ Simple whatsapp api for only send message without any authentication.
 3. on your keyboard press CTRL + SHIFT + I (Developer Tools / Inspect Element)
 4. go to Elements TAB
 5. find value with press CTRL + F
-6. type @g.us and then enter
+6. type `@g.us` and then enter
 7. the value must be like this `false_123456789xxx@g.us_BAE5AB1xxxx_62xxxxx@c.us`
 8. Your Group ID is `123456789xxx@g.us` (just the number)
