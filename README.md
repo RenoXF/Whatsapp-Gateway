@@ -20,8 +20,8 @@ Simple whatsapp api for only send message without any authentication.
 ## How to Send Messages to Group Chats
 
 1. go to folder src --> controller
-2. rename ChatController.ts into what ever you want (ChatController.backup.txt for example)
-3. rename ChatController.txt to ChatController.ts
+2. rename `ChatController.ts` into what ever you want (ChatController.backup.txt for example)
+3. rename `ChatController.txt` to `ChatController.ts`
 4. build
 
 ## How to Get Group ID
