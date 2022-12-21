@@ -33,3 +33,12 @@ Simple whatsapp api for only send message without any authentication.
 6. type `@g.us` and then enter
 7. the value must be like this `false_123456789xxx@g.us_BAE5AB1xxxx_62xxxxx@c.us`
 8. Your Group ID is `123456789xxx@g.us` (just the number)
+
+## How to Send Message
+1. Scan QR Code 
+    if you use local PC. type localhost:3000/qrcode
+    and if you use VPS. type (ip address):300/qrcode
+    
+2. Send Message
+    if you use local PC. type localhost:3000/sendMessage?number=(number phone or group id)&message=TEST
+    and if you use VPS. type (ip address):300/sendMessage?number=(number phone or group id)&message=TEST
