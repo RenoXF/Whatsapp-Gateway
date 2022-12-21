@@ -37,8 +37,10 @@ Simple whatsapp api for only send message without any authentication.
 ## How to Send Message
 1. Scan QR Code 
     if you use local PC. type localhost:3000/qrcode
+    <br>
     and if you use VPS. type (ip address):300/qrcode
     
 2. Send Message
     if you use local PC. type localhost:3000/sendMessage?number=(number phone or group id)&message=TEST
+    <br>
     and if you use VPS. type (ip address):300/sendMessage?number=(number phone or group id)&message=TEST
