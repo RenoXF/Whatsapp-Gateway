@@ -45,4 +45,4 @@ Simple whatsapp api for only send message without any authentication.
     <br>
     if you use local PC. type `localhost:3000/sendMessage?number=(number phone or group id)&message=TEST`
     <br>
-    and if you use VPS. type `(ip address):300/sendMessage?number=(number phone or group id)&message=TEST`
+    and if you use VPS. type `(ip address):3000/sendMessage?number=(number phone or group id)&message=TEST`
