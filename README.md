@@ -1,6 +1,7 @@
 # Whatsapp Gateway
 
 Simple whatsapp api for only send message without any authentication.
+![Chocolatey](https://img.shields.io/chocolatey/dt/Whatsapp-Gateway.git?style=social)
 
 ## Build from source
 
