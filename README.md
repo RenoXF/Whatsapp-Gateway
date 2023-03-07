@@ -1,7 +1,7 @@
-# Whatsapp Gateway
+# Whatsapp Gateway <a href=""><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/RenoXF/Whatsapp-Gateway"></a>
 
 Simple whatsapp api for only send message without any authentication.
-![Chocolatey](https://img.shields.io/chocolatey/dt/Whatsapp-Gateway.git?style=social)
+
 
 ## Build from source
 
