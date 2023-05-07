@@ -2,11 +2,15 @@
 
 Simple whatsapp api for only send message without any authentication.
 
+## Install Node JS
+1. `wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash`
+2. `source ~/.bashrc`
+3. `nvm install --lts`
 
 ## Build from source
 
 1. `git clone https://github.com/RenoXF/Whatsapp-Gateway.git`
-2. `cd whatsapp-gateway`
+2. `cd Whatsapp-Gateway`
 3. `yarn install` or `npm install`
 4. `yarn run build` or `npm run build`
 5. `yarn run serve` or `npm run serve`
@@ -17,6 +21,17 @@ Simple whatsapp api for only send message without any authentication.
 2. `yarn install --production=true` or `npm install --omit=dev`
 3. `yarn run serve` or `npm run serve`
 4. then, you can setup your reverse proxy web server.
+
+## How to run script 24/7
+1. `sudo apt-get install tmux`
+2. `npm install -g nodemon`
+3. type `tmux` in terminal to run terminal session
+4. make sure you are in the directory Whatsapp-Gateway
+5. run script with nodemon `nodemon start`
+
+## How to bring back session
+1. run in new terminal
+2. `tmux attach -t 0`
 
 ## How to Send Messages to Group Chats
 
