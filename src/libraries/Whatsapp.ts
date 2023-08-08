@@ -2,7 +2,7 @@ import waSocket, {
   Browsers,
   DisconnectReason,
   useMultiFileAuthState,
-} from '@adiwajshing/baileys'
+} from '@whiskeysockets/baileys'
 import { Boom } from '@hapi/boom'
 import { existsSync, rmSync } from 'fs'
 import { resolve } from 'path'
