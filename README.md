@@ -1,5 +1,5 @@
-# Whatsapp Gateway <a href=""><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/RenoXF/Whatsapp-Gateway"></a>
-<a href="https://ebilling.gmdp.net.id/login"><img alt="GitHub repo size" src="https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2F103.131.16.123%3A3000/qrcode"></a>
+# Whatsapp Gateway
+<a href=""><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/RenoXF/Whatsapp-Gateway"></a>
 
 Simple whatsapp api for only send message without any authentication.
 
@@ -63,3 +63,8 @@ Simple whatsapp api for only send message without any authentication.
     if you use local PC. type `localhost:3000/sendMessage?number=(number phone or group id)&message=TEST`
     <br>
     and if you use VPS. type `(ip address):3000/sendMessage?number=(number phone or group id)&message=TEST`
+
+## Any Questions?
+Whatsapp = <a href="http/wa.me/+628095609323302">Click Here!</a>
+<br>
+Email = help@iamraf.my.id
