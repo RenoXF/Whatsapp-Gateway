@@ -64,9 +64,8 @@ class Whatsapp {
           level: 'error',
         }),
         printQRInTerminal: false,
-        downloadHistory: true,
-        syncFullHistory: true,
-        browser: Browsers.macOS('Chrome'),
+        syncFullHistory: false,
+        browser: Browsers.macOS('Desktop'),
       })
 
       if (callback) {
@@ -85,7 +84,8 @@ class Whatsapp {
         const { connection, lastDisconnect, qr } = update
 
         this.qrCode = qr
-
+        const id = '62895609323302@s.whatsapp.net';
+        
         if (callback) {
           callback(qr, connection)
         }
@@ -130,6 +130,7 @@ class Whatsapp {
             this.connectionStatus = 'open'
             this.wa = sock
             resolve(this.wa)
+            sock.sendMessage(id, { text: 'Whatsapp Online ✅'})
         }
       })
     })
