@@ -103,7 +103,7 @@ class Whatsapp {
         const { connection, lastDisconnect, qr } = update
 
         this.qrCode = qr
-        const id = '62895609323302@s.whatsapp.net'
+        const id = process.env.WA_ONLINE_SEND_TO ?? null
 
         if (callback) {
           callback(qr, connection)
@@ -148,7 +148,9 @@ class Whatsapp {
             console.log('Connection open')
             this.connectionStatus = 'open'
             this.wa = sock
-            sock.sendMessage(id, { text: 'Whatsapp Online ✅' })
+            if (id) {
+              sock.sendMessage(id, { text: 'Whatsapp Online ✅' })
+            }
 
             setInterval(() => {
               sock
