@@ -39,11 +39,13 @@ class ChatController {
       await sock.sendMessage(jid, {
         text: msg,
       })
+      console.log(`Successfully send message to ${jid}`)
 
       return res.status(200).json({
         message: 'Message has been sent',
       })
     } catch (error) {
+      console.error(`Failed to send message to ${jid}`, error)
       return res.status(400).json({
         error,
       })
