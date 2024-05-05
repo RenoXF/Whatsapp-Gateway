@@ -41,6 +41,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      # Install dependencies
+      - name: Install dependencies
+        run: pnpm install
+
       # Lint application
       - name: Lint
         run: pnpm lint
