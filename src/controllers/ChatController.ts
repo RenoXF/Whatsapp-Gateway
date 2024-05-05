@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import Whatsapp from '../libraries/Whatsapp'
+import { jidNormalizedUser } from '@whiskeysockets/baileys'
 
 class ChatController {
   public async send(req: Request, res: Response) {
@@ -35,7 +36,7 @@ class ChatController {
     //   })
     // }
 
-    const jid = number.startsWith('628')
+    const jid = jidNormalizedUser(number).startsWith('628')
       ? `${number}@s.whatsapp.net`
       : `${number}@g.us`
 
