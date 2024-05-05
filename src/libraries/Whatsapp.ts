@@ -149,6 +149,7 @@ class Whatsapp {
             this.connectionStatus = 'open'
             this.wa = sock
             if (id) {
+              console.log('Sending message to ' + id)
               sock.sendMessage(id, { text: 'Whatsapp Online ✅' })
             }
 
