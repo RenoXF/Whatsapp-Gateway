@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint .gitignore --ext .ts src/",
+    "lint": "eslint . --no-warn-ignored",
     "format": "prettier --ignore-path .gitignore --write \"src/**/*.+(ts|json)\"",
     "clean": "rimraf dist/",
     "copy-files": "copyfiles -u 1 src/views/**/** dist/",
