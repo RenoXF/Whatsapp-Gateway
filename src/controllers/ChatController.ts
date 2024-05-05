@@ -3,7 +3,9 @@ import Whatsapp from '../libraries/Whatsapp'
 
 class ChatController {
   public async send(req: Request, res: Response) {
-    const number = req.body.number || req.params.number || req.query.number
+    const number = String(
+      req.body.number || req.params.number || req.query.number,
+    )
     const msg = req.body.message || req.params.message || req.query.message
     const sock = Whatsapp.get()
 
@@ -33,7 +35,9 @@ class ChatController {
     //   })
     // }
 
-    const jid = number
+    const jid = number.startsWith('628')
+      ? `${number}@s.whatsapp.net`
+      : `${number}@g.us`
 
     try {
       await sock.sendMessage(jid, {
