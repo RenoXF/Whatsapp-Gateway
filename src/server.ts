@@ -41,12 +41,12 @@ const io = new Server(server)
 //  * Whatsapp
 //  */
 Whatsapp.connect(async (qr, status) => {
-  console.log('qrcode refreshed')
   if (status != undefined) {
     io.emit('status', status)
   }
 
   if (qr != undefined) {
+    console.log('qrcode refreshed')
     io.emit('qr', await QRCode.toDataURL(qr))
   }
 })
