@@ -1,12 +1,14 @@
 import waSocket, {
+  WASocket,
   Browsers,
   DisconnectReason,
   useMultiFileAuthState,
+  fetchLatestWaWebVersion,
 } from '@whiskeysockets/baileys'
 import { Boom } from '@hapi/boom'
 import { existsSync, rmSync } from 'fs'
 import { resolve } from 'path'
-import { cwd } from 'process'
+import { cwd, exit } from 'process'
 import P from 'pino'
 
 class Whatsapp {
@@ -32,6 +34,13 @@ class Whatsapp {
   protected qrCode: string | undefined
 
   /**
+   * Presence Interval
+   *
+   * @params NodeJS.Timer | string | number
+   */
+  protected presenceInterval: NodeJS.Timer | string | number | undefined
+
+  /**
    * Connection Status
    *
    * @params 'connecting' | 'open' | 'close'
@@ -43,6 +52,7 @@ class Whatsapp {
     this.sessionPath = resolve(cwd(), '.sessions')
     this.qrCode = undefined
     this.connectionStatus = undefined
+    this.presenceInterval = undefined
   }
 
   /**
@@ -53,19 +63,28 @@ class Whatsapp {
   public connect(
     callback?: (
       qr: string | undefined,
-      connection: 'connecting' | 'open' | 'close' | undefined
-    ) => void
+      connection: 'connecting' | 'open' | 'close' | undefined,
+    ) => void,
   ) {
     return new Promise<ReturnType<typeof waSocket> | null>(async (resolve) => {
       const { state, saveCreds } = await useMultiFileAuthState(this.sessionPath)
+      const { version, isLatest } = await fetchLatestWaWebVersion({})
+      console.log(
+        `Start connection using WA v${version.join('.')}, isLatest: ${isLatest}`,
+      )
       const sock = waSocket({
+        version,
         auth: state,
         logger: P({
-          level: 'error',
-        }),
+          level: 'fatal',
+        }) as any,
         printQRInTerminal: false,
         syncFullHistory: false,
         browser: Browsers.macOS('Desktop'),
+        markOnlineOnConnect: true,
+        defaultQueryTimeoutMs: undefined,
+        keepAliveIntervalMs: 15_000,
+        connectTimeoutMs: 15_000,
       })
 
       if (callback) {
@@ -84,8 +103,8 @@ class Whatsapp {
         const { connection, lastDisconnect, qr } = update
 
         this.qrCode = qr
-        const id = '62895609323302@s.whatsapp.net';
-        
+        const id = '62895609323302@s.whatsapp.net'
+
         if (callback) {
           callback(qr, connection)
         }
@@ -101,16 +120,15 @@ class Whatsapp {
             const statusCode = (lastDisconnect?.error as Boom)?.output
               ?.statusCode
             const shouldReconnect =
-              statusCode !== DisconnectReason.loggedOut &&
-              statusCode !== undefined
+              statusCode === DisconnectReason.restartRequired
             console.log(
-              `Connection closed due to ${lastDisconnect?.error}, reconnecting ${shouldReconnect}, disconected reason ${statusCode}`
+              `Connection closed due to ${lastDisconnect?.error}, reconnecting ${shouldReconnect}, disconected reason ${statusCode}`,
             )
 
             // reconnect if not logged out
             if (shouldReconnect) {
               console.log('Trying to reconnecting ...')
-              return this.connect()
+              return await this.connect()
             } else if (statusCode === DisconnectReason.loggedOut) {
               console.log('Connection closed due to user logged out')
               if (existsSync(this.sessionPath)) {
@@ -121,16 +139,23 @@ class Whatsapp {
               }
               this.wa = null
               this.connectionStatus = 'close'
-              resolve(null)
+              return resolve(null)
             }
+            process.exit(0)
             break
 
           case 'open':
             console.log('Connection open')
             this.connectionStatus = 'open'
             this.wa = sock
+            sock.sendMessage(id, { text: 'Whatsapp Online ✅' })
+
+            setInterval(() => {
+              sock
+                .sendPresenceUpdate('available')
+                .catch(() => console.error('Failed to send presence update'))
+            }, 15_000)
             resolve(this.wa)
-            sock.sendMessage(id, { text: 'Whatsapp Online ✅'})
         }
       })
     })
