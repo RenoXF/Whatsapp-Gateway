@@ -27,7 +27,7 @@ class ChatController {
 
     const [result] = await sock.onWhatsApp(number)
 
-    if (!result.exists) {
+    if (!result?.exists) {
       return res.status(422).json({
         error: 'Phone number is invalid',
       })
