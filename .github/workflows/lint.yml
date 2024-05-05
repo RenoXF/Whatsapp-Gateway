@@ -17,19 +17,34 @@ jobs:
         uses: actions/checkout@v4
 
       # Setup Node.js environment
-      - name: Use Node.js 18.x
+      - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 'lts'
 
-      # Install dependencies
-      - name: Install dependencies
-        run: yarn
+      - uses: pnpm/action-setup@v3
+        name: Install pnpm
+        with:
+          version: 'latest'
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       # Lint application
       - name: Lint
-        run: yarn run lint
+        run: pnpm lint
 
       # Format application
       - name: Format
-        run: yarn run format
+        run: pnpm format
