@@ -3,7 +3,7 @@ import waSocket, {
   Browsers,
   DisconnectReason,
   useMultiFileAuthState,
-  fetchLatestWaWebVersion,
+  fetchLatestBaileysVersion,
 } from '@whiskeysockets/baileys'
 import { Boom } from '@hapi/boom'
 import { existsSync, rmSync } from 'fs'
@@ -68,7 +68,7 @@ class Whatsapp {
   ) {
     return new Promise<ReturnType<typeof waSocket> | null>(async (resolve) => {
       const { state, saveCreds } = await useMultiFileAuthState(this.sessionPath)
-      const { version, isLatest } = await fetchLatestWaWebVersion({})
+      const { version, isLatest } = await fetchLatestBaileysVersion()
       console.log(
         `Start connection using WA v${version.join('.')}, isLatest: ${isLatest}`,
       )
@@ -76,7 +76,7 @@ class Whatsapp {
         version,
         auth: state,
         logger: P({
-          level: 'fatal',
+          level: 'error',
         }) as any,
         printQRInTerminal: false,
         syncFullHistory: false,
