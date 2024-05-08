@@ -36,7 +36,15 @@ class ChatController {
     //   })
     // }
 
-    const jid = jidNormalizedUser(number).startsWith('628')
+    const phoneNumber = number.split('@')[0] ?? null
+
+    if (phoneNumber == null) {
+      return res.status(422).json({
+        error: 'Phone number is invalid',
+      })
+    }
+
+    const jid = phoneNumber?.toString()?.startsWith('628')
       ? `${number}@s.whatsapp.net`
       : `${number}@g.us`
 
