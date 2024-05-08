@@ -34,13 +34,6 @@ Simple whatsapp api for only send message without any authentication.
 1. run in new terminal
 2. `tmux attach -t 0`
 
-## How to Send Messages to Group Chats
-
-1. go to folder src --> controller
-2. rename `ChatController.ts` into what ever you want (ChatController.backup.txt for example)
-3. rename `ChatController.txt` to `ChatController.ts`
-4. build
-
 ## How to Get Group ID
 1. open https://web.whatsapp.com/
 2. open the Group Profile
@@ -63,8 +56,3 @@ Simple whatsapp api for only send message without any authentication.
     if you use local PC. type `localhost:3000/sendMessage?number=(number phone or group id)&message=TEST`
     <br>
     and if you use VPS. type `(ip address):3000/sendMessage?number=(number phone or group id)&message=TEST`
-
-## Any Questions?
-Whatsapp = <a href="http://wa.me/+62895609323302" target="_blank">Click Here!</a>
-<br>
-Email = help@iamraf.my.id
