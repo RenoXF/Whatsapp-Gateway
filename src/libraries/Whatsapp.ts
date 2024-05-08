@@ -76,7 +76,7 @@ class Whatsapp {
         version,
         auth: state,
         logger: P({
-          level: 'error',
+          level: 'fatal',
         }) as any,
         printQRInTerminal: false,
         syncFullHistory: false,
