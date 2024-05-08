@@ -36,7 +36,13 @@ class ChatController {
     //   })
     // }
 
-    const phoneNumber = number.split('@')[0] ?? null
+    const phoneNumber =
+      new String(number)
+        .replace('@g.us', '')
+        .replace('@s.whatsapp.net', '')
+        .replace('@c.us', '')
+        .replace('@broadcast', '')
+        .split('@')[0] ?? null
 
     if (phoneNumber == null) {
       return res.status(422).json({
