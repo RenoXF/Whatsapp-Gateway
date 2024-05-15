@@ -40,12 +40,14 @@ class ChatController {
     // }
 
     const phoneNumber =
-      new String(number)
+      Buffer.from(number, 'utf8')
+        .toString()
         .replace('@g.us', '')
         .replace('@s.whatsapp.net', '')
         .replace('@c.us', '')
         .replace('@broadcast', '')
         .split('@')[0] ?? null
+    const msgDecoded = Buffer.from(msg, 'utf8').toString()
 
     if (phoneNumber == null) {
       console.error('Phone number is invalid', number)
@@ -70,8 +72,8 @@ class ChatController {
         await sock.sendPresenceUpdate('available', jid)
 
         await sock.sendMessage(jid, {
-          body: msg,
-          text: msg,
+          body: msgDecoded,
+          text: msgDecoded,
         })
       })
       console.log(`Successfully send message to ${jid}`)
