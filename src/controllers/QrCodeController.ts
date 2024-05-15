@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Whatsapp from '../libraries/Whatsapp'
+import Whatsapp from '../libraries/Whatsapp.js'
 import QRCode from 'qrcode'
 
 class QrCodeController {

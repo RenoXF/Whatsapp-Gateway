@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
-import Whatsapp from '../libraries/Whatsapp'
-import { jidNormalizedUser } from '@whiskeysockets/baileys'
+import Whatsapp from '../libraries/Whatsapp.js'
 
 class ChatController {
   public async send(req: Request, res: Response) {

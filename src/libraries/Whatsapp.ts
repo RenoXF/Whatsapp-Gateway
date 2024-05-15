@@ -1,4 +1,5 @@
-import waSocket, {
+import {
+  makeWASocket,
   WASocket,
   Browsers,
   DisconnectReason,
@@ -6,18 +7,18 @@ import waSocket, {
   fetchLatestBaileysVersion,
 } from '@whiskeysockets/baileys'
 import { Boom } from '@hapi/boom'
-import { existsSync, rmSync } from 'fs'
-import { resolve } from 'path'
-import { cwd, exit } from 'process'
-import P from 'pino'
+import { existsSync, rmSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { cwd } from 'node:process'
+import { pino } from 'pino'
 
 class Whatsapp {
   /**
    * Whatsapp connection Object
    *
-   * @params ReturnType<typeof waSocket> | null
+   * @params WASocket | null
    */
-  protected wa: ReturnType<typeof waSocket> | null
+  protected wa: WASocket | null
 
   /**
    * Whatsapp session path
@@ -58,7 +59,7 @@ class Whatsapp {
   /**
    * Connect to whatsapp server
    *
-   * @returns Promise<ReturnType<typeof waSocket> | null>
+   * @returns Promise<WASocket | null>
    */
   public connect(
     callback?: (
@@ -66,16 +67,16 @@ class Whatsapp {
       connection: 'connecting' | 'open' | 'close' | undefined,
     ) => void,
   ) {
-    return new Promise<ReturnType<typeof waSocket> | null>(async (resolve) => {
+    return new Promise<WASocket | null>(async (resolve) => {
       const { state, saveCreds } = await useMultiFileAuthState(this.sessionPath)
       const { version, isLatest } = await fetchLatestBaileysVersion()
       console.log(
         `Start connection using WA v${version.join('.')}, isLatest: ${isLatest}`,
       )
-      const sock = waSocket({
+      const sock = makeWASocket({
         version,
         auth: state,
-        logger: P({
+        logger: pino({
           level: 'fatal',
         }) as any,
         printQRInTerminal: false,
@@ -167,9 +168,9 @@ class Whatsapp {
   /**
    * Get whatsapp connection object
    *
-   * @returns ReturnType<typeof waSocket> | null
+   * @returns WASocket | null
    */
-  public get(): ReturnType<typeof waSocket> | null {
+  public get(): WASocket | null {
     return this.wa
   }
 

@@ -1,12 +1,15 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import router from './router'
-import { resolve } from 'path'
+import router from './router/index.js'
+import { resolve, dirname } from 'node:path'
 import { Server } from 'socket.io'
-import Whatsapp from './libraries/Whatsapp'
+import Whatsapp from './libraries/Whatsapp.js'
 import QRCode from 'qrcode'
 const app = express()
 const port = process.env.PORT || 3000
+import { fileURLToPath } from 'url'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 /**
  * Body Parser

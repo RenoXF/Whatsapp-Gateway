@@ -23,6 +23,9 @@ importers:
       express:
         specifier: 4.19.2
         version: 4.19.2
+      p-queue:
+        specifier: ^8.0.1
+        version: 8.0.1
       pino:
         specifier: 9.0.0
         version: 9.0.0
@@ -56,7 +59,7 @@ importers:
         version: 1.5.5
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.8.0
-        version: 7.8.0(@typescript-eslint/parser@7.8.0)(eslint@9.2.0)(typescript@5.4.5)
+        version: 7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5)
       '@typescript-eslint/parser':
         specifier: ^7.8.0
         version: 7.8.0(eslint@9.2.0)(typescript@5.4.5)
@@ -1044,9 +1047,8 @@ packages:
   libphonenumber-js@1.11.1:
     resolution: {integrity: sha512-Wze1LPwcnzvcKGcRHFGFECTaLzxOtujwpf924difr5zniyYv1C2PiW0419qDR7m8lKDxsImu5mwxFuXhXpjmvw==}
 
-  libsignal@git+https://git@github.com:adiwajshing/libsignal-node.git#11dbd962ea108187c79a7c46fe4d6f790e23da97:
-    resolution: {commit: 11dbd962ea108187c79a7c46fe4d6f790e23da97, repo: git@github.com:adiwajshing/libsignal-node.git, type: git}
-    name: libsignal
+  libsignal@https://codeload.github.com/adiwajshing/libsignal-node/tar.gz/11dbd962ea108187c79a7c46fe4d6f790e23da97:
+    resolution: {tarball: https://codeload.github.com/adiwajshing/libsignal-node/tar.gz/11dbd962ea108187c79a7c46fe4d6f790e23da97}
     version: 2.0.1
 
   lilconfig@3.0.0:
@@ -1256,6 +1258,14 @@ packages:
   p-locate@5.0.0:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
+
+  p-queue@8.0.1:
+    resolution: {integrity: sha512-NXzu9aQJTAzbBqOt2hwsR63ea7yvxJc0PwN/zobNAudYfb1B7R08SzB4TsLeSbUCuG467NhnoT0oO6w1qRO+BA==}
+    engines: {node: '>=18'}
+
+  p-timeout@6.1.2:
+    resolution: {integrity: sha512-UbD77BuZ9Bc9aABo74gfXhNvzC9Tx7SxtHSh1fxvx3jTLLYvmVhiQZZrJzqqU0jKbN32kb5VOKiLEQI/3bIjgQ==}
+    engines: {node: '>=14.16'}
 
   p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
@@ -1990,7 +2000,7 @@ snapshots:
       '@types/node': 20.12.10
       '@types/send': 0.17.4
 
-  '@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0)(eslint@9.2.0)(typescript@5.4.5)':
+  '@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@9.2.0)(typescript@5.4.5))(eslint@9.2.0)(typescript@5.4.5)':
     dependencies:
       '@eslint-community/regexpp': 4.10.0
       '@typescript-eslint/parser': 7.8.0(eslint@9.2.0)(typescript@5.4.5)
@@ -2005,6 +2015,7 @@ snapshots:
       natural-compare: 1.4.0
       semver: 7.6.1
       ts-api-utils: 1.3.0(typescript@5.4.5)
+    optionalDependencies:
       typescript: 5.4.5
     transitivePeerDependencies:
       - supports-color
@@ -2017,6 +2028,7 @@ snapshots:
       '@typescript-eslint/visitor-keys': 7.8.0
       debug: 4.3.4
       eslint: 9.2.0
+    optionalDependencies:
       typescript: 5.4.5
     transitivePeerDependencies:
       - supports-color
@@ -2033,6 +2045,7 @@ snapshots:
       debug: 4.3.4
       eslint: 9.2.0
       ts-api-utils: 1.3.0(typescript@5.4.5)
+    optionalDependencies:
       typescript: 5.4.5
     transitivePeerDependencies:
       - supports-color
@@ -2049,6 +2062,7 @@ snapshots:
       minimatch: 9.0.4
       semver: 7.6.1
       ts-api-utils: 1.3.0(typescript@5.4.5)
+    optionalDependencies:
       typescript: 5.4.5
     transitivePeerDependencies:
       - supports-color
@@ -2100,7 +2114,7 @@ snapshots:
       cache-manager: 4.0.1
       futoin-hkdf: 1.5.3
       libphonenumber-js: 1.11.1
-      libsignal: git+https://git@github.com:adiwajshing/libsignal-node.git#11dbd962ea108187c79a7c46fe4d6f790e23da97
+      libsignal: https://codeload.github.com/adiwajshing/libsignal-node/tar.gz/11dbd962ea108187c79a7c46fe4d6f790e23da97
       music-metadata: 7.14.0
       node-cache: 5.1.2
       pino: 7.11.0
@@ -2810,7 +2824,7 @@ snapshots:
 
   libphonenumber-js@1.11.1: {}
 
-  libsignal@git+https://git@github.com:adiwajshing/libsignal-node.git#11dbd962ea108187c79a7c46fe4d6f790e23da97:
+  libsignal@https://codeload.github.com/adiwajshing/libsignal-node/tar.gz/11dbd962ea108187c79a7c46fe4d6f790e23da97:
     dependencies:
       curve25519-js: 0.0.4
       protobufjs: 6.8.8
@@ -3015,6 +3029,13 @@ snapshots:
   p-locate@5.0.0:
     dependencies:
       p-limit: 3.1.0
+
+  p-queue@8.0.1:
+    dependencies:
+      eventemitter3: 5.0.1
+      p-timeout: 6.1.2
+
+  p-timeout@6.1.2: {}
 
   p-try@2.2.0: {}
 
