@@ -1,8 +1,9 @@
 import { Request, Response } from 'express'
 import Whatsapp from '../libraries/Whatsapp.js'
+import { queue } from '../queue.js'
 
 class ChatController {
-  public async send(req: Request, res: Response) {
+  public send(req: Request, res: Response) {
     const number = String(
       req.body.number || req.params.number || req.query.number,
     )
@@ -10,18 +11,21 @@ class ChatController {
     const sock = Whatsapp.get()
 
     if (sock == null || sock == undefined) {
+      console.warn('Whatsapp Client is not connected or not available')
       return res.status(400).json({
         error: 'Whatsapp Client is not connected or not available',
       })
     }
 
     if (number == undefined || number == null) {
+      console.error('Params number cannot be null')
       return res.status(422).json({
         error: 'Params number cannot be null',
       })
     }
 
     if (msg == undefined || msg == null) {
+      console.error('Params message cannot be null', number)
       return res.status(422).json({
         error: 'Params message cannot be null',
       })
@@ -44,18 +48,31 @@ class ChatController {
         .split('@')[0] ?? null
 
     if (phoneNumber == null) {
+      console.error('Phone number is invalid', number)
       return res.status(422).json({
         error: 'Phone number is invalid',
       })
     }
 
-    const jid = phoneNumber?.toString()?.startsWith('628')
-      ? `${number}@s.whatsapp.net`
-      : `${number}@g.us`
+    const jid =
+      phoneNumber?.toString()?.startsWith('628') ||
+      phoneNumber?.toString()?.startsWith('+62') ||
+      phoneNumber?.toString()?.startsWith('0') ||
+      /^(62|08|\+62)/gim.test(phoneNumber.toString())
+        ? `${number}@s.whatsapp.net`
+        : `${number}@g.us`
 
     try {
-      await sock.sendMessage(jid, {
-        text: msg,
+      queue.add(async () => {
+        await sock.presenceSubscribe(jid)
+        await sock.sendPresenceUpdate('composing', jid)
+        await new Promise((resolve) => setTimeout(resolve, 150))
+        await sock.sendPresenceUpdate('available', jid)
+
+        await sock.sendMessage(jid, {
+          body: msg,
+          text: msg,
+        })
       })
       console.log(`Successfully send message to ${jid}`)
 
