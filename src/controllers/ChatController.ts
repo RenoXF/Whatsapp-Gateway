@@ -1,6 +1,9 @@
 import { Request, Response } from 'express'
 import Whatsapp from '../libraries/Whatsapp.js'
 import { queue } from '../queue.js'
+import { cache } from '../cache.js'
+import wa, { BufferJSON } from '@whiskeysockets/baileys'
+const { proto } = wa
 
 class ChatController {
   public send(req: Request, res: Response) {
@@ -71,12 +74,29 @@ class ChatController {
         await new Promise((resolve) => setTimeout(resolve, 150))
         await sock.sendPresenceUpdate('available', jid)
 
-        await sock.sendMessage(jid, {
+        const res = await sock.sendMessage(jid, {
           body: msgDecoded,
           text: msgDecoded,
         })
+
+        if (res == undefined || !res.key.id || !res.message) {
+          console.warn(`Failed to send message to ${jid}`)
+          return
+        }
+        console.log(`Successfully send message to ${jid}`)
+
+        const msg = proto.Message.create(res.message)
+
+        const msgObj = proto.Message.toObject(msg, {
+          defaults: true,
+          arrays: true,
+        })
+        cache
+          .set(res.key.id, JSON.stringify(msgObj, BufferJSON.replacer))
+          .then(() => {
+            console.log(`Successfully save message to cache ${jid}`)
+          })
       })
-      console.log(`Successfully send message to ${jid}`)
 
       return res.status(200).json({
         message: 'Message has been sent',
