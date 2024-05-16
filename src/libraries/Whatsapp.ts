@@ -1,16 +1,23 @@
-import {
+import wa, {
   makeWASocket,
   WASocket,
   Browsers,
   DisconnectReason,
   useMultiFileAuthState,
   fetchLatestBaileysVersion,
+  BufferJSON,
+  jidNormalizedUser,
+  isJidBroadcast,
+  isJidStatusBroadcast,
 } from '@whiskeysockets/baileys'
 import { Boom } from '@hapi/boom'
 import { existsSync, rmSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { cwd } from 'node:process'
 import { pino } from 'pino'
+import { cache } from '../cache.js'
+
+const { proto } = wa
 
 class Whatsapp {
   /**
@@ -86,6 +93,28 @@ class Whatsapp {
         defaultQueryTimeoutMs: undefined,
         keepAliveIntervalMs: 15_000,
         connectTimeoutMs: 15_000,
+        getMessage: async (key) => {
+          if (!key.id) {
+            return undefined
+          }
+          const msgCache = await cache.get<string | null | undefined>(key.id)
+
+          if (!msgCache) {
+            return undefined
+          }
+
+          try {
+            console.log(`Get message from cache: ${key.id}`)
+            const msgObj = JSON.parse(msgCache, BufferJSON.reviver)
+            return proto.Message.fromObject(msgObj)
+          } catch (error: any) {
+            console.warn(
+              `Error parsing message cache: ${error?.message ?? '-'}`,
+            )
+          }
+
+          return undefined
+        },
       })
 
       if (callback) {
@@ -96,6 +125,31 @@ class Whatsapp {
        * Whatsapp Creds update
        */
       sock.ev.on('creds.update', saveCreds)
+
+      sock.ev.on('messages.upsert', async (messages) => {
+        messages.messages.forEach((message) => {
+          const msgId = message.key.id ?? null
+          const jid = message.key.remoteJid
+            ? jidNormalizedUser(message.key.remoteJid)
+            : null
+
+          if (!jid || !message.message || !msgId) {
+            return
+          }
+
+          if (isJidBroadcast(jid) || isJidStatusBroadcast(jid)) {
+            return
+          }
+
+          const msg = proto.Message.create(message.message)
+
+          const msgObj = proto.Message.toObject(msg, {
+            defaults: true,
+            arrays: true,
+          })
+          cache.set(msgId, JSON.stringify(msgObj, BufferJSON.replacer))
+        })
+      })
 
       /**
        * Whatsapp Connection Events
