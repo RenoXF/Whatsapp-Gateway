@@ -2,7 +2,10 @@ import { createCache } from 'cache-manager'
 import { redisInsStore } from 'cache-manager-ioredis-yet'
 import { Redis } from 'ioredis'
 
-const redis = new Redis(process.env.REDIS_URL ?? '')
+const redis = new Redis(process.env.REDIS_URL ?? '', {
+  reconnectOnError: () => true,
+  maxRetriesPerRequest: null,
+})
 
 console.log(`Redis URL: ${process.env.REDIS_URL}`)
 
