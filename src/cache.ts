@@ -18,6 +18,7 @@ if (process.env.REDIS_URL) {
         new Redis(process.env.REDIS_URL, {
           reconnectOnError: () => true,
           maxRetriesPerRequest: null,
+          db: 1,
         }),
         {
           ttl,
@@ -38,6 +39,7 @@ if (process.env.REDIS_URL_2) {
         new Redis(process.env.REDIS_URL_2, {
           reconnectOnError: () => true,
           maxRetriesPerRequest: null,
+          db: 1,
         }),
         {
           ttl,
