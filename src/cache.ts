@@ -10,7 +10,7 @@ const memCache = createCache(
 )
 const caches: Cache[] = [memCache]
 
-if (process.env.REDIS_URL && process.env.REDIS_URL_2) {
+if (process.env.REDIS_URL) {
   console.log(`Redis URL: ${process.env.REDIS_URL}`)
   caches.push(
     createCache(
