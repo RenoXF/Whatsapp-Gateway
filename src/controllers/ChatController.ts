@@ -6,7 +6,7 @@ import wa, { BufferJSON } from '@whiskeysockets/baileys'
 const { proto } = wa
 
 class ChatController {
-  public send(req: Request, res: Response) {
+  public async send(req: Request, res: Response) {
     const number = String(
       req.body.number || req.params.number || req.query.number,
     )
@@ -67,11 +67,11 @@ class ChatController {
         ? `${number}@s.whatsapp.net`
         : `${number}@g.us`
 
-    try {
-      queue.add(async () => {
+    await queue.add(async () => {
+      try {
         await sock.presenceSubscribe(jid)
         await sock.sendPresenceUpdate('composing', jid)
-        await new Promise((resolve) => setTimeout(resolve, 150))
+        await new Promise((resolve) => setTimeout(resolve, 75))
         await sock.sendPresenceUpdate('available', jid)
 
         const res = await sock.sendMessage(jid, {
@@ -96,17 +96,18 @@ class ChatController {
           .then(() => {
             console.log(`Successfully save message to cache ${jid}`)
           })
-      })
+          .catch(() => console.error(`Failed to save message to cache ${jid}`))
+      } catch (error) {
+        console.error(`Failed to send message to ${jid}`, error)
+        return res.status(400).json({
+          error,
+        })
+      }
+    })
 
-      return res.status(200).json({
-        message: 'Message has been sent',
-      })
-    } catch (error) {
-      console.error(`Failed to send message to ${jid}`, error)
-      return res.status(400).json({
-        error,
-      })
-    }
+    return res.status(200).json({
+      message: 'Message has been sent',
+    })
   }
 }
 
