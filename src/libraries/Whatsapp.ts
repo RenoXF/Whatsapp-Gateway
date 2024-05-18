@@ -9,6 +9,7 @@ import wa, {
   jidNormalizedUser,
   isJidBroadcast,
   isJidStatusBroadcast,
+  makeCacheableSignalKeyStore,
 } from '@whiskeysockets/baileys'
 import { Boom } from '@hapi/boom'
 import { existsSync, rmSync } from 'node:fs'
@@ -17,6 +18,7 @@ import { cwd } from 'node:process'
 import { pino } from 'pino'
 import { cache } from '../cache.js'
 import { bqueue } from '../queue.js'
+import NodeCache from 'node-cache'
 
 const { proto } = wa
 
@@ -56,6 +58,8 @@ class Whatsapp {
    */
   protected connectionStatus: 'connecting' | 'open' | 'close' | undefined
 
+  protected msgRetryCounterCache = new NodeCache()
+
   constructor() {
     this.wa = null
     this.sessionPath = resolve(cwd(), '.sessions')
@@ -78,22 +82,27 @@ class Whatsapp {
     return new Promise<WASocket | null>(async (resolve) => {
       const { state, saveCreds } = await useMultiFileAuthState(this.sessionPath)
       const { version, isLatest } = await fetchLatestBaileysVersion()
+      const logger = pino({
+        level: 'fatal',
+      }) as any
       console.log(
         `Start connection using WA v${version.join('.')}, isLatest: ${isLatest}`,
       )
       const sock = makeWASocket({
         version,
-        auth: state,
-        logger: pino({
-          level: 'fatal',
-        }) as any,
+        auth: {
+          creds: state.creds,
+          keys: makeCacheableSignalKeyStore(state.keys, logger),
+        },
+        msgRetryCounterCache: this.msgRetryCounterCache,
+        logger: logger,
         printQRInTerminal: false,
         syncFullHistory: false,
-        browser: Browsers.macOS('Desktop'),
+        browser: Browsers.windows('Microsoft Edge'),
         markOnlineOnConnect: true,
-        defaultQueryTimeoutMs: undefined,
-        keepAliveIntervalMs: 15_000,
-        connectTimeoutMs: 15_000,
+        // defaultQueryTimeoutMs: undefined,
+        // keepAliveIntervalMs: 15_000,
+        // connectTimeoutMs: 15_000,
         getMessage: async (key) => {
           if (!key.id) {
             return undefined
