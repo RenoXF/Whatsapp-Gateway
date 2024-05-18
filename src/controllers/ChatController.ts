@@ -1,10 +1,14 @@
 import { Request, Response } from 'express'
 import Whatsapp from '../libraries/Whatsapp.js'
-import wa from '@whiskeysockets/baileys'
+import { queue } from '../queue.js'
+import { cache } from '../cache.js'
+import wa, { BufferJSON } from '@whiskeysockets/baileys'
 import { bqueue } from '../queue.js'
+const { proto } = wa
 
 class ChatController {
   public async send(req: Request, res: Response) {
+    console.log('new request')
     const number = String(
       req.body.number || req.params.number || req.query.number,
     )
@@ -71,6 +75,45 @@ class ChatController {
         message: msgDecoded,
       })
       .save()
+
+    // await queue.add(async () => {
+    try {
+      await sock.presenceSubscribe(jid)
+      await sock.sendPresenceUpdate('composing', jid)
+      await new Promise((resolve) => setTimeout(resolve, 75))
+      await sock.sendPresenceUpdate('available', jid)
+
+      const res = await sock.sendMessage(jid, {
+        body: msgDecoded,
+        text: msgDecoded,
+      })
+
+      if (res == undefined || !res.key.id || !res.message) {
+        console.warn(`Failed to send message to ${jid}`)
+        return
+      }
+      console.log(`Successfully send message to ${jid}`)
+
+      const msg = proto.Message.create(res.message)
+
+      const msgObj = proto.Message.toObject(msg, {
+        defaults: true,
+        arrays: true,
+      })
+      cache
+        .set(res.key.id, JSON.stringify(msgObj, BufferJSON.replacer))
+        .then(() => {
+          console.log(`Successfully save message to cache ${jid}`)
+        })
+        .catch(() => console.error(`Failed to save message to cache ${jid}`))
+    } catch (error) {
+      console.error(`Failed to send message to ${jid}`, error)
+      return res.status(400).json({
+        error,
+      })
+    }
+    // })
+
     return res.status(200).json({
       message: 'Message has been sent',
     })
