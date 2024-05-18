@@ -28,7 +28,9 @@ if (process.env.REDIS_URL) {
       },
     ),
   )
-} else if (process.env.REDIS_URL_2) {
+}
+
+if (process.env.REDIS_URL_2) {
   console.log(`Redis URL 2: ${process.env.REDIS_URL_2}`)
   caches.push(
     createCache(
