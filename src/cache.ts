@@ -1,41 +1,51 @@
 import { Cache, createCache, memoryStore, multiCaching } from 'cache-manager'
 import { redisInsStore } from 'cache-manager-ioredis-yet'
-import { Cluster, Redis } from 'ioredis'
-
-let redis: Redis | Cluster | null = null
-
-if (process.env.REDIS_URL && process.env.REDIS_URL_2) {
-  console.log(`Redis URL: ${process.env.REDIS_URL}`)
-  console.log(`Redis URL 2: ${process.env.REDIS_URL_2}`)
-  redis = new Cluster([process.env.REDIS_URL, process.env.REDIS_URL_2], {})
-} else if (process.env.REDIS_URL && !process.env.REDIS_URL_2) {
-  console.log(`Redis URL: ${process.env.REDIS_URL}`)
-  redis = new Redis(process.env.REDIS_URL ?? '', {
-    reconnectOnError: () => true,
-    maxRetriesPerRequest: null,
-  })
-}
+import { Redis } from 'ioredis'
 
 const ttl = 345600000
-
 const memCache = createCache(
   memoryStore({
     ttl,
   }),
 )
-
 const caches: Cache[] = [memCache]
 
-if (redis) {
-  const redisCache = createCache(
-    redisInsStore(redis, {
-      ttl,
-    }),
-    {
-      ttl,
-    },
+if (process.env.REDIS_URL && process.env.REDIS_URL_2) {
+  console.log(`Redis URL: ${process.env.REDIS_URL}`)
+  caches.push(
+    createCache(
+      redisInsStore(
+        new Redis(process.env.REDIS_URL, {
+          reconnectOnError: () => true,
+          maxRetriesPerRequest: null,
+        }),
+        {
+          ttl,
+        },
+      ),
+      {
+        ttl,
+      },
+    ),
   )
-  caches.push(redisCache)
+} else if (process.env.REDIS_URL_2) {
+  console.log(`Redis URL 2: ${process.env.REDIS_URL_2}`)
+  caches.push(
+    createCache(
+      redisInsStore(
+        new Redis(process.env.REDIS_URL_2, {
+          reconnectOnError: () => true,
+          maxRetriesPerRequest: null,
+        }),
+        {
+          ttl,
+        },
+      ),
+      {
+        ttl,
+      },
+    ),
+  )
 }
 
 export const cache = multiCaching(caches)
