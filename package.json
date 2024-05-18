@@ -59,6 +59,7 @@
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "@whiskeysockets/baileys": "^6.7.2",
+    "bee-queue": "^1.7.1",
     "body-parser": "1.20.2",
     "cache-manager": "^5.5.2",
     "cache-manager-ioredis-yet": "^2.0.4",
