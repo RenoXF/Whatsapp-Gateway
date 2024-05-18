@@ -100,9 +100,9 @@ class Whatsapp {
         syncFullHistory: false,
         browser: Browsers.windows('Microsoft Edge'),
         markOnlineOnConnect: true,
-        // defaultQueryTimeoutMs: undefined,
-        // keepAliveIntervalMs: 15_000,
-        // connectTimeoutMs: 15_000,
+        defaultQueryTimeoutMs: 30_000,
+        keepAliveIntervalMs: 15_000,
+        connectTimeoutMs: 15_000,
         getMessage: async (key) => {
           if (!key.id) {
             return undefined
