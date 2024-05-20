@@ -51,6 +51,7 @@ class ChatController {
         .replace('@s.whatsapp.net', '')
         .replace('@c.us', '')
         .replace('@broadcast', '')
+        .replace(/\D/g, '')
         .split('@')[0] ?? null
     const msgDecoded = Buffer.from(msg, 'utf8').toString()
 
