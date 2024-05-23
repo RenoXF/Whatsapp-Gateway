@@ -18,8 +18,8 @@ dependencies:
     specifier: 1.20.2
     version: 1.20.2
   cache-manager:
-    specifier: ^5.5.2
-    version: 5.5.2
+    specifier: ^5.5.3
+    version: 5.5.3
   cache-manager-ioredis-yet:
     specifier: ^2.0.4
     version: 2.0.4
@@ -885,7 +885,7 @@ packages:
     resolution: {integrity: sha512-IYg0/QjaQ7G9NObopYCmJ9mytkUOw995/lyxraY9UlqLL5zR+7SdbJdUDF3cFip2H/aPM6UEtJ+j180sMF5OAw==}
     engines: {node: '>= 18.0.0'}
     dependencies:
-      cache-manager: 5.5.2
+      cache-manager: 5.5.3
       ioredis: 5.4.1
       telejson: 7.2.0
     transitivePeerDependencies:
@@ -900,8 +900,8 @@ packages:
       lru-cache: 7.18.3
     dev: false
 
-  /cache-manager@5.5.2:
-    resolution: {integrity: sha512-HozSRPCBB26O1ZVIzX8GjauYMoZOpWcArqRIFlPKr+Mm3o+p/6VcHxRt8ia0F/tMwZdKxpHG0M+Am5Qh9FmfKw==}
+  /cache-manager@5.5.3:
+    resolution: {integrity: sha512-Td6F8lZE/YCciSi8xmdBjur6zlKIcoLMZp9jTmJNc44DrXIIcEhr9gra5j1T7RRbtWHaG5tJMEBKS+0S1+T2NQ==}
     dependencies:
       eventemitter3: 5.0.1
       lodash.clonedeep: 4.5.0
