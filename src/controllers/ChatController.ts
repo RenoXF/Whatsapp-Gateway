@@ -67,8 +67,8 @@ class ChatController {
       phoneNumber?.toString()?.startsWith('+62') ||
       phoneNumber?.toString()?.startsWith('0') ||
       /^(62|08|\+62)/gim.test(phoneNumber.toString())
-        ? `${number}@s.whatsapp.net`
-        : `${number}@g.us`
+        ? `${phoneNumber}@s.whatsapp.net`
+        : `${phoneNumber}@g.us`
 
     bqueue
       .createJob({
