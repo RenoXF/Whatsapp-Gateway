@@ -21,8 +21,8 @@ dependencies:
     specifier: ^5.5.3
     version: 5.5.3
   cache-manager-ioredis-yet:
-    specifier: ^2.0.4
-    version: 2.0.4
+    specifier: ^2.1.0
+    version: 2.1.0
   ejs:
     specifier: 3.1.10
     version: 3.1.10
@@ -880,9 +880,9 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /cache-manager-ioredis-yet@2.0.4:
-    resolution: {integrity: sha512-IYg0/QjaQ7G9NObopYCmJ9mytkUOw995/lyxraY9UlqLL5zR+7SdbJdUDF3cFip2H/aPM6UEtJ+j180sMF5OAw==}
-    engines: {node: '>= 18.0.0'}
+  /cache-manager-ioredis-yet@2.1.0:
+    resolution: {integrity: sha512-jTatM/HBYvYByjxd/GhwWCF3EqaVCSlrRSWbIXIbg9pLtewBff+19EnkZOsgmePAHDEgHDfOXsO+QcKd/mBr2g==}
+    engines: {node: '>= 18'}
     dependencies:
       cache-manager: 5.5.3
       ioredis: 5.4.1
