@@ -116,6 +116,7 @@ class Whatsapp {
           try {
             console.log(`Get message from cache: ${key.id}`)
             const msgObj = JSON.parse(msgCache, BufferJSON.reviver)
+            console.log(`Message from cache: ${msgCache}`)
             return proto.Message.fromObject(msgObj)
           } catch (error: any) {
             console.warn(
