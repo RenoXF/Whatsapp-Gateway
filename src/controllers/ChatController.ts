@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Whatsapp from '../libraries/Whatsapp.js'
+// import Whatsapp from '../libraries/Whatsapp.js'
 import { queue } from '../queue.js'
 import { cache } from '../cache.js'
 import wa, { BufferJSON } from '@whiskeysockets/baileys'
@@ -13,14 +13,14 @@ class ChatController {
       req.body.number || req.params.number || req.query.number,
     )
     const msg = req.body.message || req.params.message || req.query.message
-    const sock = Whatsapp.get()
+    // const sock = Whatsapp.get()
 
-    if (sock == null || sock == undefined) {
-      console.warn('Whatsapp Client is not connected or not available')
-      return res.status(400).json({
-        error: 'Whatsapp Client is not connected or not available',
-      })
-    }
+    // if (sock == null || sock == undefined) {
+    //   console.warn('Whatsapp Client is not connected or not available')
+    //   return res.status(400).json({
+    //     error: 'Whatsapp Client is not connected or not available',
+    //   })
+    // }
 
     if (number == undefined || number == null) {
       console.error('Params number cannot be null')
