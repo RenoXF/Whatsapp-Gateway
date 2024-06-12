@@ -39,8 +39,8 @@ dependencies:
     specifier: ^8.0.1
     version: 8.0.1
   pino:
-    specifier: 9.1.0
-    version: 9.1.0
+    specifier: 9.2.0
+    version: 9.2.0
   prettier:
     specifier: 3.3.2
     version: 3.3.2
@@ -2736,8 +2736,8 @@ packages:
       thread-stream: 0.15.2
     dev: false
 
-  /pino@9.1.0:
-    resolution: {integrity: sha512-qUcgfrlyOtjwhNLdbhoL7NR4NkHjzykAPw0V2QLFbvu/zss29h4NkRnibyFzBrNCbzCOY3WZ9hhKSwfOkNggYA==}
+  /pino@9.2.0:
+    resolution: {integrity: sha512-g3/hpwfujK5a4oVbaefoJxezLzsDgLcNJeITvC6yrfwYeT9la+edCK42j5QpEQSQCZgTKapXvnQIdgZwvRaZug==}
     hasBin: true
     dependencies:
       atomic-sleep: 1.0.0
