@@ -21,8 +21,8 @@ importers:
         specifier: 1.20.2
         version: 1.20.2
       cache-manager:
-        specifier: ^5.7.2
-        version: 5.7.2
+        specifier: ^5.7.3
+        version: 5.7.3
       cache-manager-ioredis-yet:
         specifier: ^2.1.1
         version: 2.1.1
@@ -548,8 +548,8 @@ packages:
   cache-manager@4.0.1:
     resolution: {integrity: sha512-JWdtjdX8e0e6eMehAZsdJvBMvHn/pVQGYUjgzc1ILFH0vtcffb9R7XIEAqfYgEeaVJVCOSP4+dxCius+ciW0RA==}
 
-  cache-manager@5.7.2:
-    resolution: {integrity: sha512-YJ4YL4hCbn2P11vK85eo1W8nF1L9FBnRvqzRmGEy0qwNxojrsKe8U09zvRoQFo1hidbw4wfTsyce8HIo8Pvvyw==}
+  cache-manager@5.7.3:
+    resolution: {integrity: sha512-Vp2gd2aDm/MXdEWD0FLdOflvcVj4rdJ1FFmPUeOKq+fuL7MEUcezbTWxQmVB1TTN5Ig92CabMfi5z+HyQwVg9A==}
     engines: {node: '>= 18'}
 
   call-bind@1.0.7:
@@ -1286,10 +1286,6 @@ packages:
   lru-cache@10.2.2:
     resolution: {integrity: sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==}
     engines: {node: 14 || >=16.14}
-
-  lru-cache@11.0.0:
-    resolution: {integrity: sha512-Qv32eSV1RSCfhY3fpPE2GNZ8jgM9X7rdAfemLWqTUxwiyIC4jJ6Sy0fZ8H+oLWevO6i4/bizg7c8d8i6bxrzbA==}
-    engines: {node: 20 || >=22}
 
   lru-cache@7.18.3:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
@@ -2588,7 +2584,7 @@ snapshots:
 
   cache-manager-ioredis-yet@2.1.1:
     dependencies:
-      cache-manager: 5.7.2
+      cache-manager: 5.7.3
       ioredis: 5.4.1
       telejson: 7.2.0
     transitivePeerDependencies:
@@ -2600,11 +2596,11 @@ snapshots:
       lodash.clonedeep: 4.5.0
       lru-cache: 7.18.3
 
-  cache-manager@5.7.2:
+  cache-manager@5.7.3:
     dependencies:
       eventemitter3: 5.0.1
       lodash.clonedeep: 4.5.0
-      lru-cache: 11.0.0
+      lru-cache: 10.2.2
       promise-coalesce: 1.1.2
 
   call-bind@1.0.7:
@@ -3442,8 +3438,6 @@ snapshots:
   long@5.2.3: {}
 
   lru-cache@10.2.2: {}
-
-  lru-cache@11.0.0: {}
 
   lru-cache@7.18.3: {}
 
