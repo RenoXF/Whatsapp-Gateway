@@ -12,8 +12,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1
       '@whiskeysockets/baileys':
-        specifier: ^6.7.5
-        version: 6.7.5
+        specifier: ^6.7.6
+        version: 6.7.6
       bee-queue:
         specifier: ^1.7.1
         version: 1.7.1
@@ -402,13 +402,13 @@ packages:
   '@wasm-audio-decoders/ogg-vorbis@0.1.15':
     resolution: {integrity: sha512-skAN3NIrRzMkVouyfyq3gYT/op/K9iutMZr7kr5/9fnIaCnpYdrdbv69X8PZ6y3K2J5zy5KuGno5kzH8yGLOOg==}
 
-  '@whiskeysockets/baileys@6.7.5':
-    resolution: {integrity: sha512-5kDwir6wT1BY0aIdsJXDAHoq7Gy3oYwRXj3qFoS6MOC0udzF4e2D4vTbA/LVLg7a54dtDxXj+iEnrWcaE9jQZA==}
+  '@whiskeysockets/baileys@6.7.6':
+    resolution: {integrity: sha512-mh3Y+xQa0xoidncl6s9buqm1XbZrz9Vnahu4bziJ8rutvIThXD2Kf3luU3dxVMFaDHqfb58jB3+y/uJ71wKcDw==}
     peerDependencies:
       jimp: ^0.16.1
       link-preview-js: ^3.0.0
       qrcode-terminal: ^0.12.0
-      sharp: ^0.32.2
+      sharp: ^0.32.6
     peerDependenciesMeta:
       jimp:
         optional: true
@@ -418,6 +418,10 @@ packages:
         optional: true
       sharp:
         optional: true
+
+  '@whiskeysockets/libsignal-node@git+https://git@github.com:WhiskeySockets/libsignal-node.git#83a3e3a3864511cb74df1b796373f0d49d071134':
+    resolution: {commit: 83a3e3a3864511cb74df1b796373f0d49d071134, repo: git@github.com:WhiskeySockets/libsignal-node.git, type: git}
+    version: 2.0.1
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -1268,10 +1272,6 @@ packages:
   libphonenumber-js@1.11.1:
     resolution: {integrity: sha512-Wze1LPwcnzvcKGcRHFGFECTaLzxOtujwpf924difr5zniyYv1C2PiW0419qDR7m8lKDxsImu5mwxFuXhXpjmvw==}
 
-  libsignal@git+https://git@github.com:adiwajshing/libsignal-node.git#11dbd962ea108187c79a7c46fe4d6f790e23da97:
-    resolution: {commit: 11dbd962ea108187c79a7c46fe4d6f790e23da97, repo: git@github.com:adiwajshing/libsignal-node.git, type: git}
-    version: 2.0.1
-
   lilconfig@3.1.2:
     resolution: {integrity: sha512-eop+wDAvpItUys0FWkHIKeC9ybYrTGbU41U5K7+bttZZeohvnY7M9dZ5kB21GNWiFT2q1OoPTvncPCgSOVO5ow==}
     engines: {node: '>=14'}
@@ -1304,6 +1304,9 @@ packages:
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+
+  lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
   log-update@6.1.0:
     resolution: {integrity: sha512-9ie8ItPR6tjY5uYJh8K/Zrv/RMZ5VOlOWvtZdEHYSTFKZfIBPQa9tOAEeAWhd+AnIneLJ22w5fjOYtoutpWq5w==}
@@ -2465,7 +2468,7 @@ snapshots:
       '@wasm-audio-decoders/common': 9.0.5
       codec-parser: 2.4.3
 
-  '@whiskeysockets/baileys@6.7.5':
+  '@whiskeysockets/baileys@6.7.6':
     dependencies:
       '@adiwajshing/keyed-db': 0.2.4
       '@hapi/boom': 9.1.4
@@ -2475,7 +2478,8 @@ snapshots:
       cache-manager: 4.0.1
       futoin-hkdf: 1.5.3
       libphonenumber-js: 1.11.1
-      libsignal: git+https://git@github.com:adiwajshing/libsignal-node.git#11dbd962ea108187c79a7c46fe4d6f790e23da97
+      libsignal: '@whiskeysockets/libsignal-node@git+https://git@github.com:WhiskeySockets/libsignal-node.git#83a3e3a3864511cb74df1b796373f0d49d071134'
+      lodash: 4.17.21
       music-metadata: 7.14.0
       node-cache: 5.1.2
       pino: 7.11.0
@@ -2487,6 +2491,11 @@ snapshots:
       - debug
       - supports-color
       - utf-8-validate
+
+  '@whiskeysockets/libsignal-node@git+https://git@github.com:WhiskeySockets/libsignal-node.git#83a3e3a3864511cb74df1b796373f0d49d071134':
+    dependencies:
+      curve25519-js: 0.0.4
+      protobufjs: 6.8.8
 
   abort-controller@3.0.0:
     dependencies:
@@ -3438,11 +3447,6 @@ snapshots:
 
   libphonenumber-js@1.11.1: {}
 
-  libsignal@git+https://git@github.com:adiwajshing/libsignal-node.git#11dbd962ea108187c79a7c46fe4d6f790e23da97:
-    dependencies:
-      curve25519-js: 0.0.4
-      protobufjs: 6.8.8
-
   lilconfig@3.1.2: {}
 
   lint-staged@15.2.9:
@@ -3484,6 +3488,8 @@ snapshots:
   lodash.isarguments@3.1.0: {}
 
   lodash.merge@4.6.2: {}
+
+  lodash@4.17.21: {}
 
   log-update@6.1.0:
     dependencies:
