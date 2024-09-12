@@ -64,7 +64,7 @@
     "cache-manager": "^5.7.6",
     "cache-manager-ioredis-yet": "^2.1.1",
     "ejs": "3.1.10",
-    "express": "4.20.0",
+    "express": "4.21.0",
     "ioredis": "^5.4.1",
     "node-cache": "^5.1.2",
     "p-queue": "^8.0.1",
