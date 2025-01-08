@@ -10,7 +10,7 @@ Simple whatsapp api for only send message without any authentication.
 
 ## Build from source
 
-1. `git clone https://github.com/RenoXF/Whatsapp-Gateway.git`
+1. `git clone https://github.com/GMDP-Developers/Whatsapp-Gateway.git`
 2. `cd Whatsapp-Gateway`
 3. `yarn install` or `npm install`
 4. `yarn run build` or `npm run build`
